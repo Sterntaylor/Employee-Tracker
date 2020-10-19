@@ -1,5 +1,21 @@
 const PORT = process.env.PORT || 3001;
 const app = express();
+const mysql = require('mysql2');
+const cTable = require('console.table');
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: './db/employee.db'
+});
+connection.query('SELECT * FROM employee WHERE first_name = "Taylor" AND last_name = "Stern"',
+      function(err, results, fields){
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(results);
+        console.log(fields);
+      });
 
 const apiRoutes = require('./routes');
 
